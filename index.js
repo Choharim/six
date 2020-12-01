@@ -7,18 +7,21 @@ chooseUser = document.querySelector(".choose-user"),
 chooseMachine = document.querySelector(".choose-machine"),
 result = document.querySelector(".result");
 
-function showChoosingNumber(){}
+function showChoosingNumber(){
+  chooseUser.innerText = `You chose: ${guessNumberInput.value}`;
+  chooseMachine.innerText = `,the machine chose: `;
+}
 
 function submitHandle(event){
   event.preventDefault();
   if(isNaN(guessNumberInput.value)){
     guessNumberInput.value="";
-  }else{
-    showChoosingNumber();
-  
+  }else if (range.value < guessNumberInput.value){
+    guessNumberInput.value="";
   }
-    
-
+  else{
+    showChoosingNumber();
+  }
 }
 
 function showRange(){
