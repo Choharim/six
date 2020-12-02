@@ -7,31 +7,35 @@ chooseUser = document.querySelector(".choose-user"),
 chooseMachine = document.querySelector(".choose-machine"),
 result = document.querySelector(".result");
 
+function gameResult(user,machine){
+  if(user === machine){
+    result.innerText="You win!";
+  }else{
+    result.innerText="You lost!";
+  }
+}
+
+function showChoosingNumber(machineNumber){
+  chooseUser.innerText = `You chose: ${guessNumberInput.value}`;
+  chooseMachine.innerText = `,the machine chose: ${machineNumber}`;
+  gameResult(parseInt(guessNumberInput.value),machineNumber);
+}
+
 function makeRandomNumber(){
   const numberOfRange = parseInt(range.value)+1;
   let randomNumber = Math.floor(Math.random() *numberOfRange ); 
   if(parseInt(range.value) === 0){
     randomNumber = 0;
   }
-  return randomNumber;
-}
-makeRandomNumber();
-setInterval(makeRandomNumber,1000);
-
-function showChoosingNumber(){
-  chooseUser.innerText = `You chose: ${guessNumberInput.value}`;
-  chooseMachine.innerText = `,the machine chose: `;
+  showChoosingNumber(randomNumber);
 }
 
 function submitHandle(event){
   event.preventDefault();
-  if(isNaN(guessNumberInput.value)){
+  if(isNaN(guessNumberInput.value) || parseInt(range.value) < parseInt(guessNumberInput.value) || guessNumberInput.value === ""){
     guessNumberInput.value="";
-  }else if (range.value < guessNumberInput.value){
-    guessNumberInput.value="";
-  }
-  else{
-    showChoosingNumber();
+  }else{
+    makeRandomNumber();
   }
 }
 
